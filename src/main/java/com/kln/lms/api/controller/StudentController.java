@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/student")
 public class StudentController {
 
     private final StudentRepository studentRepository;
@@ -15,8 +16,8 @@ public class StudentController {
         this.studentRepository = studentRepository;
     }
 
-    @PostMapping("/student/signup")
-    public void signupStudent(@RequestBody Student studentData) {
-        studentRepository.save(studentData);
+    @PostMapping("/signup")
+    public Student signupStudent(@RequestBody Student studentData) {
+        return studentRepository.save(studentData);
     }
 }
