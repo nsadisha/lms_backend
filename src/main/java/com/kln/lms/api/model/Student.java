@@ -1,23 +1,24 @@
 package com.kln.lms.api.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+
+@Table(
+        uniqueConstraints = @UniqueConstraint(
+                columnNames = {"email"}
+        )
+)
 
 @Entity
 public class Student {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @JsonView(View.CourseStudentRecursiveFilter.class)
     public Integer std_id;
-    @JsonView(View.CourseStudentRecursiveFilter.class)
     private String name;
-    @JsonView(View.CourseStudentRecursiveFilter.class)
     private String email;
     @JsonIgnore
     private String password;
@@ -26,10 +27,10 @@ public class Student {
     @ManyToMany(mappedBy = "enrolledStudents")
     private List<Course> enrolledCourses = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "student")
-    @JsonView(View.CourseStudentRecursiveFilter.class)
-    @JsonIgnoreProperties({"student"})
     List<Mark> marks= new ArrayList<>();
+
 
     public Integer getStd_id() {
         return std_id;

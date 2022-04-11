@@ -1,7 +1,6 @@
 package com.kln.lms.api.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -11,9 +10,7 @@ import java.util.List;
 public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @JsonView({View.CourseStudentRecursiveFilter.class, View.IgnoreEnrolledCoursesFilter.class})
     private Integer course_id;
-    @JsonView({View.CourseStudentRecursiveFilter.class, View.IgnoreEnrolledCoursesFilter.class})
     private String name;
 
     @ManyToMany
@@ -22,10 +19,11 @@ public class Course {
             joinColumns = @JoinColumn(name = "courseId"),
             inverseJoinColumns = @JoinColumn(name = "stdId")
     )
+    @JsonIgnore
     private List<Student> enrolledStudents = new ArrayList<>();
 
     @OneToMany(mappedBy = "course")
-    @JsonIgnoreProperties({"course", "enrolledStudents"})
+    @JsonIgnore
     private List<Mark> marks = new ArrayList<>();
 
     public Integer getCourseId() {
