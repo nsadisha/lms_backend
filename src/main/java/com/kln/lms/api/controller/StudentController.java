@@ -23,7 +23,6 @@ public class StudentController {
         return studentRepository.save(studentData);
     }
 
-    @JsonView(View.CourseStudentRecursiveFilter.class)
     @GetMapping("/{studentId}")
     public Student getStudent(@PathVariable Integer studentId){
         return studentRepository.findById(studentId).get();

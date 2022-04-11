@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/mark")
 public class MarkController {
@@ -19,8 +21,13 @@ public class MarkController {
         this.markRepository = markRepository;
     }
 
-    @GetMapping("/course/{courseId}")
-    public Mark getMarksForCourse(@PathVariable String courseId){
-        return null;
+    @GetMapping("/student/{studentId}")
+    public List<Mark> getAllMarks(@PathVariable Integer studentId){
+        return markRepository.getAllMarks(studentId);
+    }
+
+    @GetMapping("/student/{studentId}/course/{courseId}")
+    public Mark getMarksForCourse(@PathVariable Integer courseId, @PathVariable Integer studentId){
+        return markRepository.getMarks(studentId, courseId);
     }
 }
