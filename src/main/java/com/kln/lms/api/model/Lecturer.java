@@ -1,5 +1,7 @@
 package com.kln.lms.api.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,6 +14,7 @@ public class Lecturer {
     private String staff_id;
     private String name;
     private String email;
+    @JsonIgnore
     private String password;
 
     public String getStaff_id() {

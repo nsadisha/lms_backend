@@ -1,5 +1,7 @@
 package com.kln.lms.api.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.kln.lms.api.model.View;
 import com.kln.lms.api.repository.StudentRepository;
 import com.kln.lms.api.model.Student;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,5 +21,11 @@ public class StudentController {
     @PostMapping("/signup")
     public Student signupStudent(@RequestBody Student studentData) {
         return studentRepository.save(studentData);
+    }
+
+    @JsonView(View.CourseStudentRecursiveFilter.class)
+    @GetMapping("/{studentId}")
+    public Student getStudent(@PathVariable Integer studentId){
+        return studentRepository.findById(studentId).get();
     }
 }
