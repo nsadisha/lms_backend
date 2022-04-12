@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Entity
 public class Lecturer {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private String staff_id;
     private String name;
     private String email;
