@@ -1,17 +1,23 @@
 package com.kln.lms.api.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+
+@Table(
+        uniqueConstraints = @UniqueConstraint(
+                columnNames = {"email"}
+        )
+)
 
 @Entity
 public class Lecturer {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private String staff_id;
     private String name;
     private String email;
+    @JsonIgnore
     private String password;
 
     public String getStaff_id() {
