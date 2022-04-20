@@ -14,13 +14,13 @@ import javax.persistence.*;
 public class Lecturer {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private String staff_id;
+    private Integer staff_id;
     private String name;
     private String email;
     @JsonIgnore
     private String password;
 
-    public String getStaff_id() {
+    public Integer getStaff_id() {
         return staff_id;
     }
     public String getName() {

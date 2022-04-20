@@ -9,11 +9,11 @@ import javax.persistence.Id;
 public class Announcement {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private String ann_id;
+    private Integer ann_id;
     private String title;
     private String description;
 
-    public String getAnnId() {
+    public Integer getAnnId() {
         return ann_id;
     }
     public String getTitle() {
