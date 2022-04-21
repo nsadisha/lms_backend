@@ -9,8 +9,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.net.URI;
 import java.util.List;
+
+import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 @RestController
 @RequestMapping("/student")
@@ -23,8 +27,6 @@ public class StudentController {
     public ResponseEntity<List<Student>> getStudents() {
         return ResponseEntity.ok().body(userService.getAllStudents());
     }
-
-    private final StudentRepository studentRepository;
 
     @PostMapping("/signup")
     public ResponseEntity<Student> signupStudent(@RequestBody Student studentData) {
@@ -41,6 +43,13 @@ public class StudentController {
     @GetMapping("/{studentId}")
     public ResponseEntity<Student> getStudent(@PathVariable Integer studentId){
         return ResponseEntity.ok().body(userService.getStudent(studentId));
+    }
+
+    @GetMapping("/course/enrollStudent")
+    public void refreshToken(HttpServletRequest request, HttpServletResponse response) {
+        String authorizationHeader = request.getHeader(AUTHORIZATION);
+
+
     }
 }
 
