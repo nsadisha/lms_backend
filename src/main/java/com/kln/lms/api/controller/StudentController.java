@@ -1,7 +1,7 @@
 package com.kln.lms.api.controller;
 
-import com.kln.lms.api.repository.StudentRepository;
 import com.kln.lms.api.model.Student;
+import com.kln.lms.api.model.User;
 import com.kln.lms.api.service.UserService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -29,9 +29,9 @@ public class StudentController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<Student> signupStudent(@RequestBody Student studentData) {
+    public ResponseEntity<User> signupStudent(@RequestBody Student studentData) {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("student/signup").toUriString());
-        return ResponseEntity.created(uri).body(userService.saveStudent(studentData));
+        return ResponseEntity.created(uri).body(userService.saveUser(studentData));
     }
 
     @PostMapping("/course/enrollStudent")

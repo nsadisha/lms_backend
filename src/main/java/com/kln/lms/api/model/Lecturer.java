@@ -1,35 +1,19 @@
 package com.kln.lms.api.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Table(
-        uniqueConstraints = @UniqueConstraint(
-                columnNames = {"email"}
-        )
-)
+@Entity @NoArgsConstructor @AllArgsConstructor
+public class Lecturer extends User{
+    private String a;
 
-@Entity
-public class Lecturer {
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Integer staff_id;
-    private String name;
-    private String email;
-    @JsonIgnore
-    private String password;
-
-    public Integer getStaff_id() {
-        return staff_id;
-    }
-    public String getName() {
-        return name;
-    }
-    public String getEmail() {
-        return email;
-    }
-    public String getPassword() {
-        return password;
+    public Lecturer(Integer id, String name, String email, String password, String role) {
+        super.setId(id);
+        super.setName(name);
+        super.setEmail(email);
+        super.setPassword(password);
+        super.setRole(role);
     }
 }

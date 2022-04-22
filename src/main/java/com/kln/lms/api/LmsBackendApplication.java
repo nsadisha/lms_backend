@@ -1,6 +1,7 @@
 package com.kln.lms.api;
 
 import com.kln.lms.api.model.Course;
+import com.kln.lms.api.model.Lecturer;
 import com.kln.lms.api.model.Student;
 import com.kln.lms.api.service.UserService;
 import org.springframework.boot.CommandLineRunner;
@@ -34,9 +35,12 @@ public class LmsBackendApplication {
 			userService.saveCourse(new Course(null, "SENG 12222", new ArrayList<>(), new ArrayList<>()));
 			userService.saveCourse(new Course(null, "SENG 12232", new ArrayList<>(), new ArrayList<>()));
 
-			userService.saveStudent(new Student(null, "Hasini", "Hasini@gmail.com", "123", new ArrayList<>(),new ArrayList<>()));
-			userService.saveStudent(new Student(null, "Sadisha", "Sadisha@gmail.com", "123", new ArrayList<>(),new ArrayList<>()));
-			userService.saveStudent(new Student(null, "Tharushi", "Tharushi@gmail.com", "123", new ArrayList<>(),new ArrayList<>()));
+			userService.saveUser(new Student(null, "Hasini", "Hasini@gmail.com", "123", "STUDENT"));
+			userService.saveUser(new Student(null, "Sadisha", "Sadisha@gmail.com", "123", "STUDENT"));
+			userService.saveUser(new Student(null, "Tharushi", "Tharushi@gmail.com", "123", "STUDENT"));
+
+			userService.saveUser(new Lecturer(null, "Amara", "Amara@gmail.com", "123", "LECTURER"));
+			userService.saveUser(new Lecturer(null, "Kasun", "Kasun@gmail.com", "123", "LECTURER"));
 
 			userService.addCourseToStudent(1,1);
 			userService.addCourseToStudent(1,2);

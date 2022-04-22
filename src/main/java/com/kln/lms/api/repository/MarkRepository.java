@@ -9,9 +9,9 @@ import java.util.List;
 
 @Repository
 public interface MarkRepository extends JpaRepository<Mark, Integer> {
-    @Query(value = "SELECT m FROM Mark m WHERE m.student.std_id = ?1 AND m.course.course_id = ?2")
+    @Query(value = "SELECT m FROM Mark m WHERE m.student.id = ?1 AND m.course.course_id = ?2")
     Mark getMarks(Integer studentId, Integer courseId);
 
-    @Query(value = "SELECT m FROM Mark m WHERE m.student.std_id = ?1")
+    @Query(value = "SELECT m FROM Mark m WHERE m.student.id = ?1")
     List<Mark> getAllMarks(Integer studentId);
 }

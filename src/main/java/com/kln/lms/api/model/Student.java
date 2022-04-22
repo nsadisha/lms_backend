@@ -2,31 +2,17 @@ package com.kln.lms.api.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-@Table(
-        uniqueConstraints = @UniqueConstraint(
-                columnNames = {"email"}
-        )
-)
-
-@Entity @Data @NoArgsConstructor @AllArgsConstructor
-public class Student {
-
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    public Integer std_id;
-    private String name;
-    private String email;
-    private String password;
-
+@Entity @NoArgsConstructor @AllArgsConstructor
+public class Student extends User{
     @ManyToMany(mappedBy = "enrolledStudents")
     private Collection<Course> enrolledCourses = new ArrayList<>();
 
@@ -34,19 +20,14 @@ public class Student {
     @OneToMany(mappedBy = "student")
     List<Mark> marks= new ArrayList<>();
 
+    public Student(Integer id, String name, String email, String password, String role) {
+        super.setId(id);
+        super.setName(name);
+        super.setEmail(email);
+        super.setPassword(password);
+        super.setRole(role);
+    }
 
-    public Integer getStd_id() {
-        return std_id;
-    }
-    public String getName() {
-        return name;
-    }
-    public String getEmail() {
-        return email;
-    }
-    public String getPassword() {
-        return password;
-    }
     public Collection<Course> getEnrolledCourses() {
         return enrolledCourses;
     }
