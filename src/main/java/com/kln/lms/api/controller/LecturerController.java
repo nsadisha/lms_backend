@@ -7,6 +7,7 @@ import com.kln.lms.api.repository.CourseRepository;
 import com.kln.lms.api.repository.LecturerRepository;
 import com.kln.lms.api.repository.MarkRepository;
 import com.kln.lms.api.repository.StudentRepository;
+import com.kln.lms.api.service.LecturerServiceImpl;
 import com.kln.lms.api.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -18,16 +19,15 @@ import java.util.List;
 @RequiredArgsConstructor
 public class LecturerController {
 
-    private final LecturerRepository lecturerRepository;
     private final CourseRepository courseRepository;
     private final StudentRepository studentRepository;
     private final MarkRepository markRepository;
 
-    private final UserService userService;
+    private final LecturerServiceImpl lecturerService;
 
     @GetMapping("/{courseId}/students")
     List<Student> getEnrolledStudents(@PathVariable Integer courseId){
-        return courseRepository.getEnrolledStudents(courseId);
+        return lecturerService.getEnrolledStudents(courseId);
     }
 
     @PutMapping("/{courseId}/student/{studentId}/mark/{marks}")
