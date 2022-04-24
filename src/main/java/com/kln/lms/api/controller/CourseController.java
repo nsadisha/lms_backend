@@ -1,8 +1,7 @@
 package com.kln.lms.api.controller;
 
 import com.kln.lms.api.model.Course;
-import com.kln.lms.api.repository.CourseRepository;
-import com.kln.lms.api.service.UserService;
+import com.kln.lms.api.service.CourseServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,23 +12,21 @@ import java.util.List;
 @RequestMapping("/course")
 @RequiredArgsConstructor
 public class CourseController {
-
-    private final CourseRepository courseRepository;
-    private final UserService userService;
+    private final CourseServiceImpl courseService;
 
     @GetMapping("/all")
-    List<Course> getAllCourses(){
-        return courseRepository.findAll();
+    ResponseEntity<List<Course>> getAllCourses(){
+        return ResponseEntity.ok().body(courseService.getAll());
     }
 
     @GetMapping("/{courseId}")
     public ResponseEntity<?> getCourse(@PathVariable Integer courseId){
-        return ResponseEntity.ok().body(courseRepository.findById(courseId));
+        return ResponseEntity.ok().body(courseService.getInfo(courseId));
     }
 
     @PostMapping("/add")
     Course addNewCourse(@RequestBody Course course){
-        return courseRepository.save(course);
+        return courseService.saveCourse(course);
     }
 
 }
