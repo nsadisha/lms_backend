@@ -1,7 +1,7 @@
 package com.kln.lms.api.controller;
 
 import com.kln.lms.api.model.User;
-import com.kln.lms.api.service.UserService;
+import com.kln.lms.api.service.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +20,7 @@ import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserService userService;
+    private final UserServiceImpl userService;
 
     @PostMapping("/signup")
     public ResponseEntity<User> signupUser(@RequestBody User userData) {
