@@ -1,6 +1,5 @@
 package com.kln.lms.api.controller;
 
-import com.kln.lms.api.model.Student;
 import com.kln.lms.api.model.User;
 import com.kln.lms.api.service.UserService;
 import lombok.RequiredArgsConstructor;

@@ -1,11 +1,7 @@
 package com.kln.lms.api.controller;
 
 import com.kln.lms.api.model.Course;
-import com.kln.lms.api.model.Mark;
-import com.kln.lms.api.model.Student;
 import com.kln.lms.api.repository.CourseRepository;
-import com.kln.lms.api.repository.MarkRepository;
-import com.kln.lms.api.repository.StudentRepository;
 import com.kln.lms.api.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
