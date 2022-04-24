@@ -6,7 +6,9 @@ import com.kln.lms.api.model.Student;
 import com.kln.lms.api.repository.CourseRepository;
 import com.kln.lms.api.repository.MarkRepository;
 import com.kln.lms.api.repository.StudentRepository;
+import com.kln.lms.api.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,13 +17,18 @@ import java.util.List;
 @RequestMapping("/course")
 @RequiredArgsConstructor
 public class CourseController {
-    private final CourseRepository courseRepository;
-    private final StudentRepository studentRepository;
-    private final MarkRepository markRepository;
 
-    @GetMapping("/getAll")
+    private final CourseRepository courseRepository;
+    private final UserService userService;
+
+    @GetMapping("/all")
     List<Course> getAllCourses(){
         return courseRepository.findAll();
+    }
+
+    @GetMapping("/{courseId}")
+    public ResponseEntity<?> getCourse(@PathVariable Integer courseId){
+        return ResponseEntity.ok().body(courseRepository.findById(courseId));
     }
 
     @PostMapping("/add")
@@ -29,29 +36,4 @@ public class CourseController {
         return courseRepository.save(course);
     }
 
-    @GetMapping("/{courseId}/students")
-    List<Student> getEnrolledStudents(@PathVariable Integer courseId){
-        return courseRepository.getEnrolledStudents(courseId);
-    }
-
-    @PutMapping("/{courseId}/student/{studentId}")
-    Course enrollStudentToCourse(@PathVariable Integer courseId, @PathVariable Integer studentId){
-        Course course = courseRepository.findById(courseId).get();
-        Student student = studentRepository.findById(studentId).get();
-        course.enrollStudent(student);
-        return courseRepository.save(course);
-    }
-
-    @PutMapping("/{courseId}/student/{studentId}/mark/{marks}")
-    Student assignMarks(@PathVariable Integer courseId, @PathVariable Integer studentId, @PathVariable Float marks){
-        Course course = courseRepository.findById(courseId).get();
-        Student student = studentRepository.findById(studentId).get();
-
-        Mark mark = new Mark(course, student, marks);
-
-        course.assignMarks(mark);
-        markRepository.save(mark);
-
-        return student;
-    }
 }

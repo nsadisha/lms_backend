@@ -42,6 +42,7 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
                     JWTVerifier verifier = JWT.require(algorithm).build();
                     DecodedJWT decodedJWT = verifier.verify(token);
                     String email = decodedJWT.getSubject();
+//                    String role = decodedJWT
 //                    String[] courses = decodedJWT.getClaim("courses").asArray(String.class);
                     Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
 //                    stream(courses).forEach(course -> {

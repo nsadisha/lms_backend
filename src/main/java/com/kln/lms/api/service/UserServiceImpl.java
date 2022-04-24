@@ -32,15 +32,19 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         // :Todo login students and lectures
         Student student = studentRepository.findStudentByEmail(email);
-        if(student == null){
+        User user = userRepository.findUserByEmail(email);
+        if(user == null){
             log.error("User not found in the database");
             throw new UsernameNotFoundException("User not found in the database");
         }else {
             log.info("User found in the database");
         }
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority(user.getRole()));
+
         student.getEnrolledCourses().forEach(course -> authorities.add(new SimpleGrantedAuthority(course.getName())));
-        return new org.springframework.security.core.userdetails.User(student.getEmail(), student.getPassword(), authorities);
+
+        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorities);
     }
 
     @Override
