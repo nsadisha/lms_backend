@@ -15,7 +15,7 @@ public class StudentController {
 
     @PutMapping("/{studentId}/enroll/{courseId}")
     public ResponseEntity<?> enrollStudentToCourse(@PathVariable Integer courseId, @PathVariable Integer studentId){
-        studentService.addStudentToCourse(courseId, studentId);
+        studentService.addStudentToCourse(studentId, courseId);
         return ResponseEntity.ok().build();
     }
 

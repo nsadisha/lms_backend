@@ -1,9 +1,11 @@
 package com.kln.lms.api.service;
 
 import com.kln.lms.api.model.Course;
+import com.kln.lms.api.model.Lecturer;
 import com.kln.lms.api.model.Student;
 import com.kln.lms.api.model.User;
 import com.kln.lms.api.repository.CourseRepository;
+import com.kln.lms.api.repository.LecturerRepository;
 import com.kln.lms.api.repository.StudentRepository;
 import com.kln.lms.api.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,24 +26,33 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final UserRepository userRepository;
     private final StudentRepository studentRepository;
-    private final CourseRepository courseRepository;
+    private final LecturerRepository lecturerRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Student student = studentRepository.findStudentByEmail(email);
+
         User user = userRepository.findUserByEmail(email);
+
         if(user == null){
-            log.error("Student not found in the database");
-            throw new UsernameNotFoundException("Student not found in the database");
+            log.error("User not found in the database");
+            throw new UsernameNotFoundException("User not found in the database");
         }else {
-            log.info("Student found in the database");
+            log.info("User found in the database");
         }
+
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(user.getRole()));
 
-        student.getEnrolledCourses().forEach(course -> authorities.add(new SimpleGrantedAuthority(course.getName())));
+        String role = user.getRole();
 
+        if(role.equals("STUDENT")){
+            Student student = studentRepository.findStudentByEmail(email);
+            student.getEnrolledCourses().forEach(course -> authorities.add(new SimpleGrantedAuthority(course.getName())));
+        }else if(role == "LECTURER"){
+            Lecturer lecturer = lecturerRepository.findLecturerByEmail(email);
+        }
+
+        authorities.add(new SimpleGrantedAuthority(role));
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorities);
     }
 
@@ -53,18 +64,18 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 
 
-    public Student getStudent(Integer studentId) {
-        log.info("Fetching Student {}", studentId);
-//        return studentRepository.findById(studentId).get();
-        return (Student) userRepository.findUserByIdAndRoleEquals(studentId, "STUDENT");
-    }
-
-    public void addCourseToStudent(Integer studentId, Integer courseId) {
-        Student student = studentRepository.findById(studentId).get();
-        Course  course = courseRepository.findById(courseId).get();
-        log.info("Adding course {} to student {}", course.getName(), student.getName());
-        student.getEnrolledCourses().add(course);
-        course.enrollStudent(student);
-    }
+//    public Student getStudent(Integer studentId) {
+//        log.info("Fetching Student {}", studentId);
+////        return studentRepository.findById(studentId).get();
+//        return (Student) userRepository.findUserByIdAndRoleEquals(studentId, "STUDENT");
+//    }
+//
+//    public void addCourseToStudent(Integer studentId, Integer courseId) {
+//        Student student = studentRepository.findById(studentId).get();
+//        Course  course = courseRepository.findById(courseId).get();
+//        log.info("Adding course {} to student {}", course.getName(), student.getName());
+//        student.getEnrolledCourses().add(course);
+//        course.enrollStudent(student);
+//    }
 
 }

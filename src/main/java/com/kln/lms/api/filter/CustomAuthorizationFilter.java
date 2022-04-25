@@ -30,7 +30,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class CustomAuthorizationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        if(request.getServletPath().equals("/login")){
+        if(request.getServletPath().equals("/login") || request.getServletPath().equals("/signup")){
             filterChain.doFilter(request, response);
         }else {
             String authorizationHeader = request.getHeader(AUTHORIZATION);
@@ -42,12 +42,11 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
                     JWTVerifier verifier = JWT.require(algorithm).build();
                     DecodedJWT decodedJWT = verifier.verify(token);
                     String email = decodedJWT.getSubject();
-//                    String role = decodedJWT
-//                    String[] courses = decodedJWT.getClaim("courses").asArray(String.class);
+                    String[] authoritiesArray = decodedJWT.getClaim("authorities").asArray(String.class);
                     Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-//                    stream(courses).forEach(course -> {
-//                        authorities.add(new SimpleGrantedAuthority(course));
-//                    });
+                    stream(authoritiesArray).forEach(authority -> {
+                        authorities.add(new SimpleGrantedAuthority(authority));
+                    });
                     UsernamePasswordAuthenticationToken authenticationToken =
                             new UsernamePasswordAuthenticationToken(email,null, authorities);
                     SecurityContextHolder.getContext().setAuthentication(authenticationToken);
