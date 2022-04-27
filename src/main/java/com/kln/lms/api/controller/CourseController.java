@@ -4,6 +4,7 @@ import com.kln.lms.api.model.Course;
 import com.kln.lms.api.service.CourseServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.CurrentSecurityContext;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,8 +26,9 @@ public class CourseController {
     }
 
     @PostMapping("/add")
-    Course addNewCourse(@RequestBody Course course){
-        return courseService.saveCourse(course);
+    ResponseEntity<?> addNewCourse(
+            @RequestBody Course course, @CurrentSecurityContext(expression="authentication?.name") String email){
+        return ResponseEntity.ok().body(courseService.saveCourse(course, email));
     }
 
 }
