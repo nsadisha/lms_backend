@@ -1,10 +1,8 @@
 package com.kln.lms.api.service;
 
-import com.kln.lms.api.model.Course;
 import com.kln.lms.api.model.Lecturer;
 import com.kln.lms.api.model.Student;
 import com.kln.lms.api.model.User;
-import com.kln.lms.api.repository.CourseRepository;
 import com.kln.lms.api.repository.LecturerRepository;
 import com.kln.lms.api.repository.StudentRepository;
 import com.kln.lms.api.repository.UserRepository;
@@ -48,7 +46,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         if(role.equals("STUDENT")){
             Student student = studentRepository.findStudentByEmail(email);
             student.getEnrolledCourses().forEach(course -> authorities.add(new SimpleGrantedAuthority(course.getName())));
-        }else if(role == "LECTURER"){
+        }else if(role.equals("LECTURER")){
             Lecturer lecturer = lecturerRepository.findLecturerByEmail(email);
         }
 
