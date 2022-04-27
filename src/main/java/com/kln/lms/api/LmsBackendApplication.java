@@ -32,23 +32,25 @@ public class LmsBackendApplication {
 	@Bean
 	CommandLineRunner run(StudentServiceImpl studentService, UserServiceImpl userService, CourseServiceImpl courseService){
 		return args -> {
-			courseService.saveCourse(new Course(null, "SENG 12223", new ArrayList<>(), new ArrayList<>()));
-			courseService.saveCourse(new Course(null, "SENG 12243", new ArrayList<>(), new ArrayList<>()));
-			courseService.saveCourse(new Course(null, "SENG 12222", new ArrayList<>(), new ArrayList<>()));
-			courseService.saveCourse(new Course(null, "SENG 12232", new ArrayList<>(), new ArrayList<>()));
+//			courseService.saveCourse(new Course(null, "SENG 12223", new Lecturer(), new ArrayList<>(), new ArrayList<>()));
+//			courseService.saveCourse(new Course(null, "SENG 12243", new Lecturer(),new ArrayList<>(), new ArrayList<>()));
+//			courseService.saveCourse(new Course(null, "SENG 12222", new Lecturer(),new ArrayList<>(), new ArrayList<>()));
+//			courseService.saveCourse(new Course(null, "SENG 12232", new Lecturer(),new ArrayList<>(), new ArrayList<>()));
 
 			userService.saveUser(new Student(null, "Hasini", "Hasini@gmail.com", "123", "STUDENT"));
 			userService.saveUser(new Student(null, "Sadisha", "Sadisha@gmail.com", "123", "STUDENT"));
 			userService.saveUser(new Student(null, "Tharushi", "Tharushi@gmail.com", "123", "STUDENT"));
-
+//
 			userService.saveUser(new Lecturer(null, "Amara", "Amara@gmail.com", "123", "LECTURER"));
 			userService.saveUser(new Lecturer(null, "Kasun", "Kasun@gmail.com", "123", "LECTURER"));
 
-			studentService.addStudentToCourse(1,1);
-			studentService.addStudentToCourse(1,2);
-			studentService.addStudentToCourse(2,1);
-			studentService.addStudentToCourse(3,4);
-
+			userService.saveUser(new Lecturer(null, "Admin", "admin@admin.com", "123", "ADMIN"));
+//
+//			studentService.addStudentToCourse(1,1);
+//			studentService.addStudentToCourse(1,2);
+//			studentService.addStudentToCourse(2,1);
+//			studentService.addStudentToCourse(3,4);
+//
 		};
 	}
 
