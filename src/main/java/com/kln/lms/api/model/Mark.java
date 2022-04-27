@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Table(
         uniqueConstraints = @UniqueConstraint(
-                columnNames = {"courseId", "stdId"}
+                columnNames = {"course_id", "std_id"}
         )
 )
 
@@ -16,11 +16,11 @@ public class Mark {
 
 
     @ManyToOne
-    @JoinColumn(name = "courseId")
+    @JoinColumn(name = "course_id")
     private Course course;
 
     @ManyToOne
-    @JoinColumn(name = "stdId")
+    @JoinColumn(name = "std_id")
     private Student student;
 
     private Float marks;

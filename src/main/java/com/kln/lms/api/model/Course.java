@@ -16,11 +16,14 @@ public class Course {
     private Integer course_id;
     private String name;
 
+    @ManyToOne
+    private Lecturer lecturer;
+
     @ManyToMany
     @JoinTable(
             name = "student_enrolled",
-            joinColumns = @JoinColumn(name = "courseId"),
-            inverseJoinColumns = @JoinColumn(name = "stdId")
+            joinColumns = @JoinColumn(name = "course_id"),
+            inverseJoinColumns = @JoinColumn(name = "std_id")
     )
     @JsonIgnore
     private List<Student> enrolledStudents = new ArrayList<>();
