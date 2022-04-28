@@ -6,7 +6,6 @@ import com.kln.lms.api.model.Student;
 import com.kln.lms.api.repository.CourseRegistrationRepository;
 import com.kln.lms.api.repository.CourseRepository;
 import com.kln.lms.api.repository.StudentRepository;
-import com.kln.lms.api.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
