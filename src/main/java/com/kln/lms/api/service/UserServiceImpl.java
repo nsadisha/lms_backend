@@ -45,14 +45,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
         if(role.equals("STUDENT")){
             Student student = studentRepository.findStudentByEmail(email);
-            student.getCourseRegistrations().forEach(courseRegistration -> {
-                authorities.add(new SimpleGrantedAuthority(courseRegistration.getCourse().getName()));
-            });
+            student.getCourseRegistrations().forEach(courseRegistration -> authorities.add(
+                    new SimpleGrantedAuthority(
+                            courseRegistration.getCourse().getName()
+                    )
+            ));
         }else if(role.equals("LECTURER")){
             Lecturer lecturer = lecturerRepository.findLecturerByEmail(email);
-            lecturer.getConductingCourses().forEach(course -> {
-                authorities.add(new SimpleGrantedAuthority(course.getName()));
-            });
+            lecturer.getConductingCourses().forEach(course -> authorities.add(
+                    new SimpleGrantedAuthority(course.getName())
+            ));
         }
 
         authorities.add(new SimpleGrantedAuthority(role));

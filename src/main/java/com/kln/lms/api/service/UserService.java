@@ -1,3 +1,3 @@
 package com.kln.lms.api.service;
 
-public interface UserService { }
+public interface UserService {}
