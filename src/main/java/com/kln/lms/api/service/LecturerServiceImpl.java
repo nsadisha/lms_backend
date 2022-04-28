@@ -1,11 +1,9 @@
 package com.kln.lms.api.service;
 
-import com.kln.lms.api.model.Announcement;
-import com.kln.lms.api.model.CourseRegistration;
-import com.kln.lms.api.model.Lecturer;
-import com.kln.lms.api.model.Student;
+import com.kln.lms.api.model.*;
 import com.kln.lms.api.repository.AnnouncementRepository;
 import com.kln.lms.api.repository.CourseRegistrationRepository;
+import com.kln.lms.api.repository.CourseRepository;
 import com.kln.lms.api.repository.LecturerRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +16,7 @@ import java.util.List;
 public class LecturerServiceImpl implements UserService {
 
     private final LecturerRepository lecturerRepository;
+    private final CourseRepository courseRepository;
     private final CourseRegistrationRepository courseRegistrationRepository;
     private final AnnouncementRepository announcementRepository;
 
@@ -35,8 +34,11 @@ public class LecturerServiceImpl implements UserService {
         return courseRegistrationRepository.getCourseRegistration(studentId, courseId);
     }
 
-    public Announcement postAnnouncement(Announcement announcement){
+    public Announcement postAnnouncement(Integer courseId, Announcement announcement){
         //Todo: Email sending part should be integrated
+        announcement.setCourse(
+                courseRepository.findById(courseId).orElseThrow()
+        );
         return announcementRepository.save(announcement);
     }
 }

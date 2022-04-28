@@ -23,9 +23,10 @@ public class Course {
     @JsonIgnore
     private Set<CourseRegistration> courseRegistrations = new HashSet<>();
 
-    public Integer getCourseId() {
-        return course_id;
-    }
+    @OneToMany(mappedBy = "course")
+    @JsonIgnore
+    private Set<Announcement> announcements = new HashSet<>();
+
     public String getName() {
         return name;
     }
@@ -33,9 +34,4 @@ public class Course {
     public void setCourseRegistration(CourseRegistration courseRegistration) {
         courseRegistrations.add(courseRegistration);
     }
-
-    public Set<CourseRegistration> getCourseRegistrations() {
-        return courseRegistrations;
-    }
-
 }

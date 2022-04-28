@@ -32,8 +32,8 @@ public class LecturerController {
         return lecturerService.assignMarks(courseId, studentId, marks);
     }
 
-    @PostMapping("/announcement")
-    Announcement postAnnouncement(@RequestBody Announcement announcement){
-        return lecturerService.postAnnouncement(announcement);
+    @PostMapping("/{courseId}/announcement")
+    Announcement postAnnouncement(@RequestBody Announcement announcement, @PathVariable Integer courseId){
+        return lecturerService.postAnnouncement(courseId, announcement);
     }
 }
