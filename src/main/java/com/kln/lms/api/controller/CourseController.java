@@ -12,6 +12,7 @@ import java.util.List;
 @RequestMapping("/course")
 @RequiredArgsConstructor
 public class CourseController {
+
     private final CourseServiceImpl courseService;
 
     @GetMapping("/all")
@@ -24,6 +25,7 @@ public class CourseController {
         return ResponseEntity.ok().body(courseService.getInfo(courseId));
     }
 
+    // todo
     @PostMapping("/add")
     Course addNewCourse(@RequestBody Course course){
         return courseService.saveCourse(course);

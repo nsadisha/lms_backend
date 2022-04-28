@@ -2,7 +2,6 @@ package com.kln.lms.api.security;
 
 import com.kln.lms.api.filter.CustomAuthenticationFilter;
 import com.kln.lms.api.filter.CustomAuthorizationFilter;
-import com.kln.lms.api.service.CourseServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

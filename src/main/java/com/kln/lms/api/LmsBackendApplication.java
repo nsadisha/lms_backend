@@ -32,10 +32,10 @@ public class LmsBackendApplication {
 	@Bean
 	CommandLineRunner run(StudentServiceImpl studentService, UserServiceImpl userService, CourseServiceImpl courseService){
 		return args -> {
-			courseService.saveCourse(new Course(null, "SENG 12223", new ArrayList<>(), new ArrayList<>()));
-			courseService.saveCourse(new Course(null, "SENG 12243", new ArrayList<>(), new ArrayList<>()));
-			courseService.saveCourse(new Course(null, "SENG 12222", new ArrayList<>(), new ArrayList<>()));
-			courseService.saveCourse(new Course(null, "SENG 12232", new ArrayList<>(), new ArrayList<>()));
+			courseService.saveCourse(new Course(null, "SENG 12223", new ArrayList<>()));
+			courseService.saveCourse(new Course(null, "SENG 12243", new ArrayList<>()));
+			courseService.saveCourse(new Course(null, "SENG 12222", new ArrayList<>()));
+			courseService.saveCourse(new Course(null, "SENG 12232", new ArrayList<>()));
 
 			userService.saveUser(new Student(null, "Hasini", "Hasini@gmail.com", "123", "STUDENT"));
 			userService.saveUser(new Student(null, "Sadisha", "Sadisha@gmail.com", "123", "STUDENT"));

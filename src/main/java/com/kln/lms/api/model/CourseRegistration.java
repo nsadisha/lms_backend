@@ -1,37 +1,31 @@
 package com.kln.lms.api.model;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
 @Table(
         uniqueConstraints = @UniqueConstraint(
-                columnNames = {"courseId", "stdId"}
+                columnNames = {"course_id", "student_id"}
         )
 )
 
-@Entity
-public class Mark {
+@Entity @NoArgsConstructor @AllArgsConstructor
+public class CourseRegistration {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer mark_id;
-
+    private Integer registration_id;
 
     @ManyToOne
-    @JoinColumn(name = "courseId")
+    @JoinColumn(name = "course_id")
     private Course course;
 
     @ManyToOne
-    @JoinColumn(name = "stdId")
+    @JoinColumn(name = "student_id")
     private Student student;
 
     private Float marks;
-
-    public Mark(){}
-
-    public Mark(Course course, Student student, Float marks) {
-        this.course = course;
-        this.student = student;
-        this.marks = marks;
-    }
 
     public Course getCourse() {
         return course;
@@ -45,7 +39,8 @@ public class Mark {
         return marks;
     }
 
-    public void setMarks(Float marks) {
+    public void setMark(Float marks) {
         this.marks = marks;
     }
+
 }

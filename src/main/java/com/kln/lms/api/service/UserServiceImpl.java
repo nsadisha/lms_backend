@@ -1,10 +1,8 @@
 package com.kln.lms.api.service;
 
-import com.kln.lms.api.model.Course;
 import com.kln.lms.api.model.Lecturer;
 import com.kln.lms.api.model.Student;
 import com.kln.lms.api.model.User;
-import com.kln.lms.api.repository.CourseRepository;
 import com.kln.lms.api.repository.LecturerRepository;
 import com.kln.lms.api.repository.StudentRepository;
 import com.kln.lms.api.repository.UserRepository;
@@ -47,8 +45,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
         if(role.equals("STUDENT")){
             Student student = studentRepository.findStudentByEmail(email);
-            student.getEnrolledCourses().forEach(course -> authorities.add(new SimpleGrantedAuthority(course.getName())));
-        }else if(role == "LECTURER"){
+//            student.getCourseRegistration().forEach(course -> authorities.add(new SimpleGrantedAuthority(course.getName())));
+        }else if(role.equals("LECTURER")){
             Lecturer lecturer = lecturerRepository.findLecturerByEmail(email);
         }
 
@@ -61,21 +59,5 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
-
-
-
-//    public Student getStudent(Integer studentId) {
-//        log.info("Fetching Student {}", studentId);
-////        return studentRepository.findById(studentId).get();
-//        return (Student) userRepository.findUserByIdAndRoleEquals(studentId, "STUDENT");
-//    }
-//
-//    public void addCourseToStudent(Integer studentId, Integer courseId) {
-//        Student student = studentRepository.findById(studentId).get();
-//        Course  course = courseRepository.findById(courseId).get();
-//        log.info("Adding course {} to student {}", course.getName(), student.getName());
-//        student.getEnrolledCourses().add(course);
-//        course.enrollStudent(student);
-//    }
 
 }

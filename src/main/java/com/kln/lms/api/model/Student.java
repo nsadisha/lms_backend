@@ -5,20 +5,16 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Entity @NoArgsConstructor @AllArgsConstructor
 public class Student extends User{
-    @ManyToMany(mappedBy = "enrolledStudents")
-    private Collection<Course> enrolledCourses = new ArrayList<>();
 
     @JsonIgnore
     @OneToMany(mappedBy = "student")
-    List<Mark> marks= new ArrayList<>();
+    List<CourseRegistration> courseRegistrations = new ArrayList<>();
 
     public Student(Integer id, String name, String email, String password, String role) {
         super.setId(id);
@@ -28,10 +24,11 @@ public class Student extends User{
         super.setRole(role);
     }
 
-    public Collection<Course> getEnrolledCourses() {
-        return enrolledCourses;
+    public List<CourseRegistration> getCourseRegistrations() {
+        return courseRegistrations;
     }
-    public List<Mark> getMarks() {
-        return marks;
+
+    public void setCourseRegistration(CourseRegistration courseRegistration) {
+        courseRegistrations.add(courseRegistration);
     }
 }

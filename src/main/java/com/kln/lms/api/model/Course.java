@@ -16,18 +16,9 @@ public class Course {
     private Integer course_id;
     private String name;
 
-    @ManyToMany
-    @JoinTable(
-            name = "student_enrolled",
-            joinColumns = @JoinColumn(name = "courseId"),
-            inverseJoinColumns = @JoinColumn(name = "stdId")
-    )
-    @JsonIgnore
-    private List<Student> enrolledStudents = new ArrayList<>();
-
     @OneToMany(mappedBy = "course")
     @JsonIgnore
-    private List<Mark> marks = new ArrayList<>();
+    private List<CourseRegistration> courseRegistrations = new ArrayList<>();
 
     public Integer getCourseId() {
         return course_id;
@@ -35,16 +26,13 @@ public class Course {
     public String getName() {
         return name;
     }
-    public List<Student> getEnrolledStudents() {
-        return enrolledStudents;
+
+    public void setCourseRegistration(CourseRegistration courseRegistration) {
+        courseRegistrations.add(courseRegistration);
     }
-    public void enrollStudent(Student student) {
-        enrolledStudents.add(student);
+
+    public List<CourseRegistration> getCourseRegistrations() {
+        return courseRegistrations;
     }
-    public List<Mark> getMarks() {
-        return marks;
-    }
-    public void assignMarks(Mark mark){
-        marks.add(mark);
-    }
+
 }
