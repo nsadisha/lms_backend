@@ -1,6 +1,7 @@
 package com.kln.lms.api.controller;
 
 import com.kln.lms.api.model.CourseRegistration;
+import com.kln.lms.api.model.Lecturer;
 import com.kln.lms.api.model.Student;
 import com.kln.lms.api.service.LecturerServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,11 @@ import java.util.List;
 public class LecturerController {
 
     private final LecturerServiceImpl lecturerService;
+
+    @GetMapping("/{lecturerId}")
+    Lecturer getLecturer(@PathVariable Integer lecturerId){
+        return lecturerService.getLecturer(lecturerId);
+    }
 
     @GetMapping("/{courseId}/students")
     List<Student> getEnrolledStudents(@PathVariable Integer courseId){
