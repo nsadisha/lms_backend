@@ -29,7 +29,6 @@ public class StudentController {
         return ResponseEntity.ok().build();
     }
 
-    //todo : not working
     @GetMapping("/{studentId}/courses")
     public ResponseEntity<List<Course>> getEnrolledCourses(@PathVariable Integer studentId){
         return ResponseEntity.ok().body(studentService.getEnrolledCourses(studentId));
