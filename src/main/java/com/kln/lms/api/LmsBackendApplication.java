@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 
 @SpringBootApplication
 @Configuration
@@ -32,10 +32,6 @@ public class LmsBackendApplication {
 	@Bean
 	CommandLineRunner run(StudentServiceImpl studentService, UserServiceImpl userService, CourseServiceImpl courseService){
 		return args -> {
-			courseService.saveCourse(new Course(null, "SENG 12223", new ArrayList<>()));
-			courseService.saveCourse(new Course(null, "SENG 12243", new ArrayList<>()));
-			courseService.saveCourse(new Course(null, "SENG 12222", new ArrayList<>()));
-			courseService.saveCourse(new Course(null, "SENG 12232", new ArrayList<>()));
 
 			userService.saveUser(new Student(null, "Hasini", "Hasini@gmail.com", "123", "STUDENT"));
 			userService.saveUser(new Student(null, "Sadisha", "Sadisha@gmail.com", "123", "STUDENT"));
@@ -43,6 +39,13 @@ public class LmsBackendApplication {
 
 			userService.saveUser(new Lecturer(null, "Amara", "Amara@gmail.com", "123", "LECTURER"));
 			userService.saveUser(new Lecturer(null, "Kasun", "Kasun@gmail.com", "123", "LECTURER"));
+
+			userService.saveUser(new Lecturer(null, "Admin", "admin@admin.com", "123", "ADMIN"));
+
+			courseService.saveCourse(new Course(null, "SENG 12223", null, new HashSet<>()), "Amara@gmail.com");
+			courseService.saveCourse(new Course(null, "SENG 12243", null, new HashSet<>()), "Amara@gmail.com");
+			courseService.saveCourse(new Course(null, "SENG 12222", null, new HashSet<>()), "Kasun@gmail.com");
+			courseService.saveCourse(new Course(null, "SENG 12232", null, new HashSet<>()), "Kasun@gmail.com");
 
 			studentService.addStudentToCourse(1,1);
 			studentService.addStudentToCourse(1,2);

@@ -15,6 +15,7 @@ public interface CourseRegistrationRepository extends JpaRepository<CourseRegist
 
     @Query("SELECT cr.student FROM CourseRegistration cr WHERE cr.course.course_id = ?1")
     List<Student> getEnrolledStudents(Integer courseId);
+//    List<Student> findCourseRegistrationsByCourse_CourseId(Integer courseId);
 
     @Query("SELECT cr.course FROM CourseRegistration cr WHERE cr.student.id = ?1")
     List<Course> getEnrolledCourses(Integer studentId);

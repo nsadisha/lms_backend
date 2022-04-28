@@ -6,8 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity @Data @NoArgsConstructor @AllArgsConstructor
 public class Course {
@@ -16,9 +16,12 @@ public class Course {
     private Integer course_id;
     private String name;
 
+    @ManyToOne
+    private Lecturer lecturer;
+
     @OneToMany(mappedBy = "course")
     @JsonIgnore
-    private List<CourseRegistration> courseRegistrations = new ArrayList<>();
+    private Set<CourseRegistration> courseRegistrations = new HashSet<>();
 
     public Integer getCourseId() {
         return course_id;
@@ -31,7 +34,7 @@ public class Course {
         courseRegistrations.add(courseRegistration);
     }
 
-    public List<CourseRegistration> getCourseRegistrations() {
+    public Set<CourseRegistration> getCourseRegistrations() {
         return courseRegistrations;
     }
 

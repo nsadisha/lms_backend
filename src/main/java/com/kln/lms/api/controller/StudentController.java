@@ -1,7 +1,6 @@
 package com.kln.lms.api.controller;
 
 import com.kln.lms.api.model.Course;
-import com.kln.lms.api.model.CourseRegistration;
 import com.kln.lms.api.model.Student;
 import com.kln.lms.api.repository.CourseRegistrationRepository;
 import com.kln.lms.api.service.StudentServiceImpl;
