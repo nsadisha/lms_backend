@@ -4,6 +4,7 @@ import com.kln.lms.api.model.Course;
 import com.kln.lms.api.model.Lecturer;
 import com.kln.lms.api.model.Student;
 import com.kln.lms.api.service.CourseServiceImpl;
+import com.kln.lms.api.service.LecturerServiceImpl;
 import com.kln.lms.api.service.StudentServiceImpl;
 import com.kln.lms.api.service.UserServiceImpl;
 import org.springframework.boot.CommandLineRunner;
@@ -30,7 +31,8 @@ public class LmsBackendApplication {
 	}
 
 	@Bean
-	CommandLineRunner run(StudentServiceImpl studentService, UserServiceImpl userService, CourseServiceImpl courseService){
+	CommandLineRunner run(StudentServiceImpl studentService, UserServiceImpl userService,
+						  CourseServiceImpl courseService){
 		return args -> {
 
 			userService.saveUser(new Student(null, "Hasini", "Hasini@gmail.com", "123", "STUDENT"));
@@ -42,10 +44,10 @@ public class LmsBackendApplication {
 
 			userService.saveUser(new Lecturer(null, "Admin", "admin@admin.com", "123", "ADMIN"));
 
-			courseService.saveCourse(new Course(null, "SENG 12223", null, new HashSet<>()), "Amara@gmail.com");
-			courseService.saveCourse(new Course(null, "SENG 12243", null, new HashSet<>()), "Amara@gmail.com");
-			courseService.saveCourse(new Course(null, "SENG 12222", null, new HashSet<>()), "Kasun@gmail.com");
-			courseService.saveCourse(new Course(null, "SENG 12232", null, new HashSet<>()), "Kasun@gmail.com");
+			courseService.saveCourse(new Course(null, "SENG 12223", null, new HashSet<>(), new HashSet<>()), "Amara@gmail.com");
+			courseService.saveCourse(new Course(null, "SENG 12243", null, new HashSet<>(), new HashSet<>()), "Amara@gmail.com");
+			courseService.saveCourse(new Course(null, "SENG 12222", null, new HashSet<>(), new HashSet<>()), "Kasun@gmail.com");
+			courseService.saveCourse(new Course(null, "SENG 12232", null, new HashSet<>(), new HashSet<>()), "Kasun@gmail.com");
 
 			studentService.addStudentToCourse(1,1);
 			studentService.addStudentToCourse(1,2);

@@ -36,4 +36,9 @@ public class LecturerController {
     Announcement postAnnouncement(@RequestBody Announcement announcement, @PathVariable Integer courseId){
         return lecturerService.postAnnouncement(courseId, announcement);
     }
+
+    @GetMapping("/{courseId}/announcements")
+    List<Announcement> getAnnouncements(@PathVariable Integer courseId){
+        return lecturerService.getAnnouncements(courseId);
+    }
 }
