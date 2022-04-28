@@ -21,7 +21,7 @@ public class StudentServiceImpl {
 
     public Student getStudent(Integer studentId) {
         log.info("Fetching Student {}", studentId);
-        return studentRepository.findById(studentId).get();
+        return studentRepository.findById(studentId).orElseThrow();
     }
 
     public List<Course> getEnrolledCourses(Integer studentId){
@@ -30,8 +30,8 @@ public class StudentServiceImpl {
     }
 
     public void addStudentToCourse(Integer studentId, Integer courseId) {
-        Student student = studentRepository.findById(studentId).get();
-        Course course = courseRepository.findById(courseId).get();
+        Student student = studentRepository.findById(studentId).orElseThrow();
+        Course course = courseRepository.findById(courseId).orElseThrow();
 
         log.info("Adding course {} to student {}", course.getName(), student.getName());
 

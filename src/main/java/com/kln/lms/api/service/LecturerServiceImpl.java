@@ -5,7 +5,6 @@ import com.kln.lms.api.model.Lecturer;
 import com.kln.lms.api.model.Student;
 import com.kln.lms.api.repository.CourseRegistrationRepository;
 import com.kln.lms.api.repository.LecturerRepository;
-import com.kln.lms.api.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -17,12 +16,11 @@ import java.util.List;
 public class LecturerServiceImpl implements UserService {
 
     private final LecturerRepository lecturerRepository;
-    private final UserRepository userRepository;
     private final CourseRegistrationRepository courseRegistrationRepository;
 
     public Lecturer getLecturer(Integer lecturerId) {
         log.info("Fetching Lecturer {}", lecturerId);
-        return (Lecturer) userRepository.findUserByIdAndRoleEquals(lecturerId, "LECTURER");
+        return lecturerRepository.findById(lecturerId).orElseThrow();
     }
 
     public List<Student> getEnrolledStudents(Integer courseId){

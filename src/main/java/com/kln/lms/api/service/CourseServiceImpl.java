@@ -21,7 +21,7 @@ public class CourseServiceImpl {
     }
 
     public Course getInfo(Integer courseId){
-        return courseRepository.findById(courseId).get();
+        return courseRepository.findById(courseId).orElseThrow();
     }
 
     public Course saveCourse(Course course, String email) {
