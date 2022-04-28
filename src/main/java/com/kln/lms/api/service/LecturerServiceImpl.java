@@ -1,8 +1,10 @@
 package com.kln.lms.api.service;
 
+import com.kln.lms.api.model.Announcement;
 import com.kln.lms.api.model.CourseRegistration;
 import com.kln.lms.api.model.Lecturer;
 import com.kln.lms.api.model.Student;
+import com.kln.lms.api.repository.AnnouncementRepository;
 import com.kln.lms.api.repository.CourseRegistrationRepository;
 import com.kln.lms.api.repository.LecturerRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +19,7 @@ public class LecturerServiceImpl implements UserService {
 
     private final LecturerRepository lecturerRepository;
     private final CourseRegistrationRepository courseRegistrationRepository;
+    private final AnnouncementRepository announcementRepository;
 
     public Lecturer getLecturer(Integer lecturerId) {
         log.info("Fetching Lecturer {}", lecturerId);
@@ -30,5 +33,10 @@ public class LecturerServiceImpl implements UserService {
     public CourseRegistration assignMarks(Integer courseId, Integer studentId, Float marks) {
         courseRegistrationRepository.setMarks(studentId, courseId, marks);
         return courseRegistrationRepository.getCourseRegistration(studentId, courseId);
+    }
+
+    public Announcement postAnnouncement(Announcement announcement){
+        //Todo: Email sending part should be integrated
+        return announcementRepository.save(announcement);
     }
 }
