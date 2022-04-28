@@ -1,5 +1,6 @@
 package com.kln.lms.api.controller;
 
+import com.kln.lms.api.model.Announcement;
 import com.kln.lms.api.model.Course;
 import com.kln.lms.api.model.Student;
 import com.kln.lms.api.repository.CourseRegistrationRepository;
@@ -39,4 +40,8 @@ public class StudentController {
         return ResponseEntity.ok().body(courseRegistrationRepository.getMarks(studentId, courseId));
     }
 
+    @GetMapping("/{courseId}/announcements")
+    List<Announcement> getAnnouncements(@PathVariable Integer courseId){
+        return studentService.getAnnouncements(courseId);
+    }
 }
