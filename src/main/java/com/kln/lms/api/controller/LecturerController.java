@@ -8,6 +8,7 @@ import com.kln.lms.api.service.LecturerServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -16,6 +17,11 @@ import java.util.List;
 public class LecturerController {
 
     private final LecturerServiceImpl lecturerService;
+
+    @PostMapping("/sendemail")
+    public void sendEmails() throws IOException {
+        lecturerService.sendEmails();
+    }
 
     @GetMapping("/{lecturerId}")
     Lecturer getLecturer(@PathVariable Integer lecturerId){

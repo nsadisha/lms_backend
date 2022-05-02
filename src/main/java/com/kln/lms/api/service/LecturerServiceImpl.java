@@ -1,5 +1,7 @@
 package com.kln.lms.api.service;
 
+import com.kln.lms.api.emails.MailGunEmailService;
+import com.kln.lms.api.emails.Emails;
 import com.kln.lms.api.model.*;
 import com.kln.lms.api.repository.AnnouncementRepository;
 import com.kln.lms.api.repository.CourseRegistrationRepository;
@@ -10,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.util.List;
 
 @Service @RequiredArgsConstructor @Transactional @Slf4j
@@ -19,6 +22,7 @@ public class LecturerServiceImpl implements UserService {
     private final CourseRepository courseRepository;
     private final CourseRegistrationRepository courseRegistrationRepository;
     private final AnnouncementRepository announcementRepository;
+    private final MailGunEmailService emailService;
 
     public Lecturer getLecturer(Integer lecturerId) {
         log.info("Fetching Lecturer {}", lecturerId);
@@ -44,5 +48,10 @@ public class LecturerServiceImpl implements UserService {
 
     public List<Announcement> getAnnouncements(Integer courseId){
         return announcementRepository.findAnnouncementsByCourseId(courseId);
+    }
+
+    public void sendEmails() throws IOException {
+        Emails emails = new Emails("kittycatpurrrrrs@gmail.com", "Subject", "This is the body");
+        emailService.sendEmail(emails);
     }
 }

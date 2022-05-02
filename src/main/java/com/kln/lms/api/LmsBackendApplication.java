@@ -1,5 +1,6 @@
 package com.kln.lms.api;
 
+import com.kln.lms.api.emails.EmailService;
 import com.kln.lms.api.model.Course;
 import com.kln.lms.api.model.Lecturer;
 import com.kln.lms.api.model.Student;
@@ -7,6 +8,8 @@ import com.kln.lms.api.service.CourseServiceImpl;
 import com.kln.lms.api.service.LecturerServiceImpl;
 import com.kln.lms.api.service.StudentServiceImpl;
 import com.kln.lms.api.service.UserServiceImpl;
+import com.sendgrid.SendGrid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
