@@ -1,63 +1,36 @@
 package com.kln.lms.api.controller;
 
 import com.kln.lms.api.model.Course;
-import com.kln.lms.api.model.Mark;
-import com.kln.lms.api.model.Student;
-import com.kln.lms.api.repository.CourseRepository;
-import com.kln.lms.api.repository.MarkRepository;
-import com.kln.lms.api.repository.StudentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.kln.lms.api.service.CourseServiceImpl;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.CurrentSecurityContext;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/course")
+@RequiredArgsConstructor
 public class CourseController {
-    private final CourseRepository courseRepository;
-    private final StudentRepository studentRepository;
-    private final MarkRepository markRepository;
 
-    @Autowired
-    public CourseController(CourseRepository courseRepository, StudentRepository studentRepository, MarkRepository markRepository) {
-        this.courseRepository = courseRepository;
-        this.studentRepository = studentRepository;
-        this.markRepository = markRepository;
+    private final CourseServiceImpl courseService;
+
+    @GetMapping("/all")
+    ResponseEntity<List<Course>> getAllCourses(){
+        return ResponseEntity.ok().body(courseService.getAll());
     }
 
-    @GetMapping("/getAll")
-    List<Course> getAllCourses(){
-        return courseRepository.findAll();
+    @GetMapping("/{courseId}")
+    public ResponseEntity<?> getCourse(@PathVariable Integer courseId){
+        return ResponseEntity.ok().body(courseService.getInfo(courseId));
     }
 
+    // todo
     @PostMapping("/add")
-    Course addNewCourse(@RequestBody Course course){
-        return courseRepository.save(course);
+    ResponseEntity<?> addNewCourse(
+            @RequestBody Course course, @CurrentSecurityContext(expression="authentication?.name") String email){
+        return ResponseEntity.ok().body(courseService.saveCourse(course, email));
     }
 
-    @GetMapping("/{courseId}/students")
-    List<Student> getEnrolledStudents(@PathVariable Integer courseId){
-        return courseRepository.getEnrolledStudents(courseId);
-    }
-
-    @PutMapping("/{courseId}/student/{studentId}")
-    Course enrollStudentToCourse(@PathVariable Integer courseId, @PathVariable Integer studentId){
-        Course course = courseRepository.findById(courseId).get();
-        Student student = studentRepository.findById(studentId).get();
-        course.enrollStudent(student);
-        return courseRepository.save(course);
-    }
-
-    @PutMapping("/{courseId}/student/{studentId}/mark/{marks}")
-    Student assignMarks(@PathVariable Integer courseId, @PathVariable Integer studentId, @PathVariable Float marks){
-        Course course = courseRepository.findById(courseId).get();
-        Student student = studentRepository.findById(studentId).get();
-
-        Mark mark = new Mark(course, student, marks);
-
-        course.assignMarks(mark);
-        markRepository.save(mark);
-
-        return student;
-    }
 }

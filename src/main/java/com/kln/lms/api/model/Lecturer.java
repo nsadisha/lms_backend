@@ -1,35 +1,29 @@
 package com.kln.lms.api.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
-@Table(
-        uniqueConstraints = @UniqueConstraint(
-                columnNames = {"email"}
-        )
-)
+@Entity @NoArgsConstructor @AllArgsConstructor
+public class Lecturer extends User{
 
-@Entity
-public class Lecturer {
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private String staff_id;
-    private String name;
-    private String email;
     @JsonIgnore
-    private String password;
+    @OneToMany(mappedBy = "lecturer")
+    private List<Course> conductingCourses = new ArrayList<>();
 
-    public String getStaff_id() {
-        return staff_id;
+    public Lecturer(Integer id, String name, String email, String password, String role) {
+        super.setId(id);
+        super.setName(name);
+        super.setEmail(email);
+        super.setPassword(password);
+        super.setRole(role);
     }
-    public String getName() {
-        return name;
-    }
-    public String getEmail() {
-        return email;
-    }
-    public String getPassword() {
-        return password;
+
+    public List<Course> getConductingCourses() {
+        return conductingCourses;
     }
 }
