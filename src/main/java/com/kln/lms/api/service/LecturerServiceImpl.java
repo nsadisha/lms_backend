@@ -1,7 +1,7 @@
 package com.kln.lms.api.service;
 
 import com.kln.lms.api.emails.MailGunEmailService;
-import com.kln.lms.api.emails.Emails;
+import com.kln.lms.api.emails.EmailModel;
 import com.kln.lms.api.model.*;
 import com.kln.lms.api.repository.AnnouncementRepository;
 import com.kln.lms.api.repository.CourseRegistrationRepository;
@@ -51,7 +51,7 @@ public class LecturerServiceImpl implements UserService {
     }
 
     public void sendEmails() throws IOException {
-        Emails emails = new Emails("kittycatpurrrrrs@gmail.com", "Subject", "This is the body");
+        EmailModel emails = new EmailModel("kittycatpurrrrrs@gmail.com", "Subject", "This is the body");
         emailService.sendEmail(emails);
     }
 }

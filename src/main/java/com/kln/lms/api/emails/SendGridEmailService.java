@@ -25,7 +25,7 @@ public class SendGridEmailService implements EmailService{
     }
 
     @Override
-    public void sendEmail(Emails email) throws IOException {
+    public void sendEmail(EmailModel email) throws IOException {
 
         Email from = new Email("hasinisama99@gmail.com");
         String subject = email.getSubject();
