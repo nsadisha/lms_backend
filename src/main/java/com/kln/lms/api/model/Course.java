@@ -14,7 +14,12 @@ public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer course_id;
+
+    @Column (unique = true)
+    private String course_code;
     private String name;
+    @Column( columnDefinition = "LONGTEXT")
+    private String description;
 
     @ManyToOne
     private Lecturer lecturer;

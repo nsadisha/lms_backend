@@ -41,8 +41,4 @@ public class LecturerServiceImpl implements UserService {
         );
         return announcementRepository.save(announcement);
     }
-
-    public List<Announcement> getAnnouncements(Integer courseId){
-        return announcementRepository.findAnnouncementsByCourseId(courseId);
-    }
 }

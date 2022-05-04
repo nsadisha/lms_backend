@@ -20,7 +20,6 @@ public class StudentServiceImpl {
     private final StudentRepository studentRepository;
     private final CourseRepository courseRepository;
     private final CourseRegistrationRepository courseRegistrationRepository;
-    private final AnnouncementRepository announcementRepository;
 
     public Student getStudent(Integer studentId) {
         log.info("Fetching Student {}", studentId);
@@ -44,10 +43,5 @@ public class StudentServiceImpl {
         student.setCourseRegistration(courseRegistration);
         course.setCourseRegistration(courseRegistration);
 
-    }
-
-    public List<Announcement> getAnnouncements(Integer courseId) {
-        log.info("Announcements from course id: "+courseId);
-        return announcementRepository.findAnnouncementsByCourseId(courseId);
     }
 }

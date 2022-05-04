@@ -1,7 +1,9 @@
 package com.kln.lms.api.service;
 
+import com.kln.lms.api.model.Announcement;
 import com.kln.lms.api.model.Course;
 import com.kln.lms.api.model.Lecturer;
+import com.kln.lms.api.repository.AnnouncementRepository;
 import com.kln.lms.api.repository.CourseRepository;
 import com.kln.lms.api.repository.LecturerRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +17,7 @@ import java.util.List;
 public class CourseServiceImpl {
     private final CourseRepository courseRepository;
     private final LecturerRepository lecturerRepository;
+    private final AnnouncementRepository announcementRepository;
 
     public List<Course> getAll(){
         return courseRepository.findAll();
@@ -30,5 +33,9 @@ public class CourseServiceImpl {
         course.setLecturer(lecturer);
         lecturer.getConductingCourses().add(course);
         return courseRepository.save(course);
+    }
+
+    public List<Announcement> getAnnouncements(Integer courseId){
+        return announcementRepository.findAnnouncementsByCourseId(courseId);
     }
 }

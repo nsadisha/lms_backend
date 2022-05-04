@@ -39,9 +39,4 @@ public class StudentController {
     public ResponseEntity<Float> getMarksForCourse(@PathVariable Integer courseId, @PathVariable Integer studentId){
         return ResponseEntity.ok().body(courseRegistrationRepository.getMarks(studentId, courseId));
     }
-
-    @GetMapping("/{courseId}/announcements")
-    List<Announcement> getAnnouncements(@PathVariable Integer courseId){
-        return studentService.getAnnouncements(courseId);
-    }
 }
