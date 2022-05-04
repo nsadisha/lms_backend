@@ -35,7 +35,7 @@ public class StudentServiceImpl {
         Student student = studentRepository.findById(studentId).orElseThrow();
         Course course = courseRepository.findById(courseId).orElseThrow();
 
-        log.info("Adding course {} to student {}", course.getName(), student.getName());
+        log.info("Adding course {} to student {}", course.getCourse_code(), student.getName());
 
         CourseRegistration courseRegistration = new CourseRegistration(null, course, student, null);
         courseRegistrationRepository.save(courseRegistration);
@@ -43,5 +43,16 @@ public class StudentServiceImpl {
         student.setCourseRegistration(courseRegistration);
         course.setCourseRegistration(courseRegistration);
 
+    }
+
+    public void removeStudentFromCourse(Integer studentId, Integer courseId) {
+        CourseRegistration courseRegistration = courseRegistrationRepository.getCourseRegistration(studentId, courseId);
+
+        log.info("Removing course {} from student {}", courseRegistration.getCourse().getCourse_code(), courseRegistration.getStudent().getName());
+
+        courseRegistrationRepository.delete(courseRegistration);
+
+        courseRegistration.getStudent().getCourseRegistrations().remove(courseRegistration);
+        courseRegistration.getCourse().getCourseRegistrations().remove(courseRegistration);
     }
 }

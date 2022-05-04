@@ -30,6 +30,12 @@ public class StudentController {
         return ResponseEntity.ok().build();
     }
 
+    @PutMapping("/{studentId}/unenroll/{courseId}")
+    public ResponseEntity<?> unEnrollStudentToCourse(@PathVariable Integer courseId, @PathVariable Integer studentId){
+        studentService.removeStudentFromCourse(studentId, courseId);
+        return ResponseEntity.ok().build();
+    }
+
     @GetMapping("/{studentId}/courses")
     public ResponseEntity<List<Course>> getEnrolledCourses(@PathVariable Integer studentId){
         return ResponseEntity.ok().body(studentService.getEnrolledCourses(studentId));
