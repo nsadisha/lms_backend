@@ -15,12 +15,12 @@ public class Lecturer extends User{
     @OneToMany(mappedBy = "lecturer")
     private List<Course> conductingCourses = new ArrayList<>();
 
-    public Lecturer(Integer id, String name, String email, String password, String role) {
-        super.setId(id);
-        super.setName(name);
-        super.setEmail(email);
-        super.setPassword(password);
-        super.setRole(role);
+    public Lecturer(User user) {
+        super.setId(user.getId());
+        super.setName(user.getName());
+        super.setEmail(user.getEmail());
+        super.setPassword(user.getPassword());
+        super.setRole(user.getRole());
     }
 
     public List<Course> getConductingCourses() {
