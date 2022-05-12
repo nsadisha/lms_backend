@@ -61,7 +61,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     public User saveUser(User user) {
-        log.info("Saving new {} {}", user.getRole(), user.getName());
+
+        if(user.getRole().equals("STUDENT")){
+            user = new Student(user);
+        }else if(user.getRole().equals("LECTURER")){
+            user = new Lecturer(user);
+        }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
