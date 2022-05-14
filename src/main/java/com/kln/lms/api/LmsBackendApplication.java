@@ -1,5 +1,6 @@
 package com.kln.lms.api;
 
+import com.kln.lms.api.model.Course;
 import com.kln.lms.api.model.*;
 import com.kln.lms.api.service.CourseServiceImpl;
 import com.kln.lms.api.service.LecturerServiceImpl;
@@ -33,7 +34,7 @@ public class LmsBackendApplication {
 						  CourseServiceImpl courseService, LecturerServiceImpl lecturerService){
 		return args -> {
 
-			userService.saveUser(new User(null, "Hasini Kavisha", "Hasini@gmail.com", "123", "STUDENT"));
+			userService.saveUser(new User(null, "Hasini Kavisha", "hasinisama99@gmail.com", "123", "STUDENT"));
 			userService.saveUser(new User(null, "Sadisha Nimsara", "Sadisha@gmail.com", "123", "STUDENT"));
 			userService.saveUser(new User(null, "Tharushi Chamalsha", "Tharushi@gmail.com", "123", "STUDENT"));
 

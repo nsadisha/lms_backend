@@ -31,4 +31,5 @@ build/
 
 ### VS Code ###
 .vscode/
+sendgrid.env
 .DS_Store

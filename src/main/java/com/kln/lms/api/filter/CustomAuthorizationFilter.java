@@ -45,9 +45,7 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
                     String id = decodedJWT.getClaim("id").asString();
 
                     Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-                    stream(coursesArray).forEach(course -> {
-                        authorities.add(new SimpleGrantedAuthority(course));
-                    });
+                    stream(coursesArray).forEach(course -> authorities.add(new SimpleGrantedAuthority(course)));
 
                     authorities.add(new SimpleGrantedAuthority(role));
                     authorities.add(new SimpleGrantedAuthority(id));

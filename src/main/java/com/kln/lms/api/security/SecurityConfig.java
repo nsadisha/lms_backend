@@ -2,7 +2,6 @@ package com.kln.lms.api.security;
 
 import com.kln.lms.api.filter.CustomAuthenticationFilter;
 import com.kln.lms.api.filter.CustomAuthorizationFilter;
-import com.kln.lms.api.service.CourseServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -12,16 +11,10 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-
-import javax.servlet.http.HttpServletRequest;
-
-import static org.springframework.http.HttpMethod.POST;
 
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -30,7 +23,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userDetailsService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    private final CourseServiceImpl courseService;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -40,12 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.cors().configurationSource(new CorsConfigurationSource() {
-            @Override
-            public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
-                return new CorsConfiguration().applyPermitDefaultValues();
-            }
-        });
+        http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
 
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
@@ -55,13 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //permissions
         http.authorizeRequests().antMatchers("/student/**").hasAnyAuthority("STUDENT", "ADMIN");
 
-//        courseService.getAll().forEach(course -> {
-//            try {
-//                http.authorizeRequests().antMatchers("/course/"+course.getCourse_id()).hasAuthority(course.getCourse_code());
-//            } catch (Exception exception) {
-//                exception.printStackTrace();
-//            }
-//        });
+
 
         http.authorizeRequests().antMatchers("/lecturer/**").hasAnyAuthority("LECTURER", "ADMIN");
         http.authorizeRequests().antMatchers("/admin/**").hasAuthority("ADMIN");
