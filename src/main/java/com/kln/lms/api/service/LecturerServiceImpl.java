@@ -8,6 +8,7 @@ import com.kln.lms.api.repository.CourseRegistrationRepository;
 import com.kln.lms.api.repository.CourseRepository;
 import com.kln.lms.api.repository.LecturerRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -38,8 +39,15 @@ public class LecturerServiceImpl implements UserService {
         return courseRegistrationRepository.getCourseRegistration(studentId, courseId);
     }
 
+    @SneakyThrows
     public Announcement postAnnouncement(Integer courseId, Announcement announcement){
-        //Todo: Email sending part should be integrated
+
+        List<Student> enrolledStudents = getEnrolledStudents(courseId);
+        for (Student enrolledStudent : enrolledStudents) {
+            EmailModel emailModel = new EmailModel(enrolledStudent.getEmail(),announcement.getTitle(),announcement.getDescription());
+            emailService.sendEmail(emailModel);
+        }
+
         announcement.setCourse(
                 courseRepository.findById(courseId).orElseThrow()
         );
@@ -50,8 +58,5 @@ public class LecturerServiceImpl implements UserService {
         return announcementRepository.findAnnouncementsByCourseId(courseId);
     }
 
-    public void sendEmails() throws IOException {
-        EmailModel emails = new EmailModel("kittycatpurrrrrs@gmail.com", "Subject", "This is the body");
-        emailService.sendEmail(emails);
-    }
+
 }
