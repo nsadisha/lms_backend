@@ -13,7 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.io.IOException;
 import java.util.List;
 
 @Service @RequiredArgsConstructor @Transactional @Slf4j
@@ -53,10 +52,4 @@ public class LecturerServiceImpl implements UserService {
         );
         return announcementRepository.save(announcement);
     }
-
-    public List<Announcement> getAnnouncements(Integer courseId){
-        return announcementRepository.findAnnouncementsByCourseId(courseId);
-    }
-
-
 }

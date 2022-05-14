@@ -46,23 +46,27 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         if(role.equals("STUDENT")){
             Student student = studentRepository.findStudentByEmail(email);
             student.getCourseRegistrations().forEach(courseRegistration -> authorities.add(
-                    new SimpleGrantedAuthority(
-                            courseRegistration.getCourse().getName()
-                    )
+                    new SimpleGrantedAuthority(courseRegistration.getCourse().getCourse_code())
             ));
         }else if(role.equals("LECTURER")){
             Lecturer lecturer = lecturerRepository.findLecturerByEmail(email);
             lecturer.getConductingCourses().forEach(course -> authorities.add(
-                    new SimpleGrantedAuthority(course.getName())
+                    new SimpleGrantedAuthority(course.getCourse_code())
             ));
         }
 
-        authorities.add(new SimpleGrantedAuthority(role));
+        authorities.add(new SimpleGrantedAuthority("0" + role));
+        authorities.add(new SimpleGrantedAuthority(user.getId().toString()));
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorities);
     }
 
     public User saveUser(User user) {
-        log.info("Saving new {} {}", user.getRole(), user.getName());
+
+        if(user.getRole().equals("STUDENT")){
+            user = new Student(user);
+        }else if(user.getRole().equals("LECTURER")){
+            user = new Lecturer(user);
+        }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }

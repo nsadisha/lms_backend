@@ -16,7 +16,7 @@ import java.io.IOException;
 @Service @Slf4j @AllArgsConstructor
 public class SendGridEmailService implements EmailService{
 
-    private SendGrid sendGrid;
+    private final SendGrid sendGrid;
 
     @Autowired
     public SendGridEmailService() {
@@ -37,16 +37,12 @@ public class SendGridEmailService implements EmailService{
 
         Request request = new Request();
 
-        try {
-            request.setMethod(Method.POST);
-            request.setEndpoint("mail/send");
-            request.setBody(mail.build());
+        request.setMethod(Method.POST);
+        request.setEndpoint("mail/send");
+        request.setBody(mail.build());
 //            Response response = this.sendGrid.api(request);
-            this.sendGrid.api(request);
-            log.info("done");
+        this.sendGrid.api(request);
+        log.info("done");
 //            log.info(response.getBody());
-        } catch (IOException ex) {
-            throw ex;
-        }
     }
 }

@@ -16,10 +16,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import static java.util.Arrays.stream;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
@@ -42,11 +39,17 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
                     JWTVerifier verifier = JWT.require(algorithm).build();
                     DecodedJWT decodedJWT = verifier.verify(token);
                     String email = decodedJWT.getSubject();
-                    String[] authoritiesArray = decodedJWT.getClaim("authorities").asArray(String.class);
+
+                    String[] coursesArray = decodedJWT.getClaim("courses").asArray(String.class);
+                    String role = decodedJWT.getClaim("role").asString();
+                    String id = decodedJWT.getClaim("id").asString();
+
                     Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-                    stream(authoritiesArray).forEach(authority -> {
-                        authorities.add(new SimpleGrantedAuthority(authority));
-                    });
+                    stream(coursesArray).forEach(course -> authorities.add(new SimpleGrantedAuthority(course)));
+
+                    authorities.add(new SimpleGrantedAuthority(role));
+                    authorities.add(new SimpleGrantedAuthority(id));
+
                     UsernamePasswordAuthenticationToken authenticationToken =
                             new UsernamePasswordAuthenticationToken(email,null, authorities);
                     SecurityContextHolder.getContext().setAuthentication(authenticationToken);

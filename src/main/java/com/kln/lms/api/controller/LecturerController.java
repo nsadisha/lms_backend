@@ -18,11 +18,6 @@ public class LecturerController {
 
     private final LecturerServiceImpl lecturerService;
 
-    @PostMapping("/sendemail")
-    public void sendEmails() throws IOException {
-        lecturerService.sendEmails();
-    }
-
     @GetMapping("/{lecturerId}")
     Lecturer getLecturer(@PathVariable Integer lecturerId){
         return lecturerService.getLecturer(lecturerId);
@@ -41,10 +36,5 @@ public class LecturerController {
     @PostMapping("/{courseId}/announcement")
     Announcement postAnnouncement(@RequestBody Announcement announcement, @PathVariable Integer courseId){
         return lecturerService.postAnnouncement(courseId, announcement);
-    }
-
-    @GetMapping("/{courseId}/announcements")
-    List<Announcement> getAnnouncements(@PathVariable Integer courseId){
-        return lecturerService.getAnnouncements(courseId);
     }
 }
