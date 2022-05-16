@@ -28,7 +28,7 @@ public class LecturerController {
         return lecturerService.getEnrolledStudents(courseId);
     }
 
-    @PutMapping("/{courseId}/student/{studentId}/mark/{marks}")
+    @PostMapping("/{courseId}/student/{studentId}/mark/{marks}")
     CourseRegistration assignMarks(@PathVariable Integer courseId, @PathVariable Integer studentId, @PathVariable Float marks){
         return lecturerService.assignMarks(courseId, studentId, marks);
     }

@@ -23,13 +23,13 @@ public class StudentController {
         return ResponseEntity.ok().body(studentService.getStudent(studentId));
     }
 
-    @PutMapping("/{studentId}/enroll/{courseId}")
+    @PostMapping("/{studentId}/enroll/{courseId}")
     public ResponseEntity<?> enrollStudentToCourse(@PathVariable Integer courseId, @PathVariable Integer studentId){
         studentService.addStudentToCourse(studentId, courseId);
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/{studentId}/unenroll/{courseId}")
+    @PostMapping("/{studentId}/unenroll/{courseId}")
     public ResponseEntity<?> unEnrollStudentToCourse(@PathVariable Integer courseId, @PathVariable Integer studentId){
         studentService.removeStudentFromCourse(studentId, courseId);
         return ResponseEntity.ok().build();
