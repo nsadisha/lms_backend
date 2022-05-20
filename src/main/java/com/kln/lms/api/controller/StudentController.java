@@ -40,7 +40,7 @@ public class StudentController {
         return ResponseEntity.ok().body(studentService.getEnrolledCourses(studentId));
     }
 
-    @GetMapping("/student/{studentId}/course/{courseId}")
+    @GetMapping("/{studentId}/course/{courseId}")
     public ResponseEntity<Float> getMarksForCourse(@PathVariable Integer courseId, @PathVariable Integer studentId){
         return ResponseEntity.ok().body(courseRegistrationRepository.getMarks(studentId, courseId));
     }
