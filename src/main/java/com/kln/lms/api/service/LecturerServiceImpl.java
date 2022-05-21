@@ -41,11 +41,17 @@ public class LecturerServiceImpl implements UserService {
     }
 
     @SneakyThrows
-    public Announcement postAnnouncement(Integer courseId, Announcement announcement){
+    public Announcement postAnnouncement(Integer courseId, Announcement announcement, String email){
+
+        Course course = courseRepository.findById(courseId).orElseThrow();
+        Lecturer lecturer = lecturerRepository.findLecturerByEmail(email);
+        String leadingTitle = course.getName() + "( " + course.getCourse_code() + " )";
 
         List<Student> enrolledStudents = getEnrolledStudents(courseId);
         for (Student enrolledStudent : enrolledStudents) {
-            EmailModel emailModel = new EmailModel(enrolledStudent.getEmail(),announcement.getTitle(),announcement.getDescription());
+            EmailModel emailModel = new EmailModel(
+                    enrolledStudent.getEmail(), leadingTitle, announcement.getTitle(),
+                    announcement.getDescription(), lecturer.getName());
             emailService.sendEmail(emailModel);
         }
 

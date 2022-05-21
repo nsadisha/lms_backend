@@ -3,13 +3,17 @@ package com.kln.lms.api.emails;
 public class EmailModel {
 
     private String receiver;
-    private String subject;
-    private String body;
+    private String leadingTitle;
+    private String title;
+    private String description;
+    private String sender;
 
-    public EmailModel(String receiver, String subject, String body) {
+    public EmailModel(String receiver, String leadingTitle, String title, String body, String sender) {
         this.receiver = receiver;
-        this.subject = subject;
-        this.body = body;
+        this.title = title;
+        this.description = body;
+        this.sender = sender;
+        this.leadingTitle = leadingTitle;
     }
 
     public String getReceiver() {
@@ -17,10 +21,11 @@ public class EmailModel {
     }
 
     public String getSubject() {
-        return subject;
+        return this.leadingTitle + " :  " + this.title;
     }
 
     public String getBody() {
+        String body = this.description + "\n\nSincerely,\n" + this.sender;
         return body;
     }
 }

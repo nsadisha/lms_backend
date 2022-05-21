@@ -7,6 +7,8 @@ import com.kln.lms.api.model.Student;
 import com.kln.lms.api.response.StudentMarksResponse;
 import com.kln.lms.api.service.LecturerServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.CurrentSecurityContext;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,7 +41,10 @@ public class LecturerController {
     }
 
     @PostMapping("/{courseId}/announcement")
-    Announcement postAnnouncement(@RequestBody Announcement announcement, @PathVariable Integer courseId){
-        return lecturerService.postAnnouncement(courseId, announcement);
+    Announcement postAnnouncement(
+            @RequestBody Announcement announcement,
+            @PathVariable Integer courseId,
+            @CurrentSecurityContext(expression="authentication?.Principal") String email){
+        return lecturerService.postAnnouncement(courseId, announcement, email);
     }
 }

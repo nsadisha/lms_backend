@@ -35,7 +35,7 @@ public class LmsBackendApplication {
 		return args -> {
 
 			userService.saveUser(new User(null, "Hasini Kavisha", "hasinisama99@gmail.com", "123", "STUDENT"));
-			userService.saveUser(new User(null, "Sadisha Nimsara", "Sadisha@gmail.com", "123", "STUDENT"));
+			userService.saveUser(new User(null, "Sadisha Nimsara", "nsadisha@gmail.com", "123", "STUDENT"));
 			userService.saveUser(new User(null, "Tharushi Chamalsha", "Tharushi@gmail.com", "123", "STUDENT"));
 
 			userService.saveUser(new User(null, "Ms. Amara Samarasignhe", "Amara@gmail.com", "123", "LECTURER"));
@@ -54,10 +54,10 @@ public class LmsBackendApplication {
 			studentService.addStudentToCourse(2,1);
 			studentService.addStudentToCourse(3,4);
 
-//			lecturerService.postAnnouncement(1, new Announcement(null,"Assignment Deadline Postponed", "The deadline for the final assignment of the course module has been postponed due the prevailing situation in the country", null));
-//			lecturerService.postAnnouncement(3, new Announcement(null,"New Assignment Added", "New assignment has been added to the course module. The deadline is tomorrow", null));
-//			lecturerService.postAnnouncement(3, new Announcement(null,"New Assignment Added", "New assignment has been added to the course module. The deadline is today", null));
-//			lecturerService.postAnnouncement(4, new Announcement(null,"Assignment Deadline Postponed", "The deadline for the final assignment of the course module has been postponed due the prevailing situation in the country", null));
+			lecturerService.postAnnouncement(1, new Announcement(null,"Assignment Deadline Postponed", "The deadline for the final assignment of the course module has been postponed due the prevailing situation in the country.", null), "Amara@gmail.com");
+			lecturerService.postAnnouncement(3, new Announcement(null,"New Assignment Added", "New assignment has been added to the course module. The deadline is tomorrow.", null), "Kasun@gmail.com");
+			lecturerService.postAnnouncement(3, new Announcement(null,"New Assignment Added", "New assignment has been added to the course module. The deadline is today.", null), "Kasun@gmail.com");
+			lecturerService.postAnnouncement(4, new Announcement(null,"Assignment Deadline Postponed", "The deadline for the final assignment of the course module has been postponed due the prevailing situation in the country.", null), "Kasun@gmail.com");
 
 		};
 	}
