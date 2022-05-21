@@ -40,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/signup").anonymous();
 
         //permissions
-        http.authorizeRequests().antMatchers("/student/{id}/course/{id}").hasAuthority("LECTURER");
+//        http.authorizeRequests().antMatchers("/student/{id}/course/{id}").hasAuthority("LECTURER");
         http.authorizeRequests().antMatchers("/student/**").hasAnyAuthority("STUDENT", "ADMIN");
 
         http.authorizeRequests().antMatchers("/lecturer/**").hasAnyAuthority("LECTURER", "ADMIN");

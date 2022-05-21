@@ -54,10 +54,10 @@ public class LmsBackendApplication {
 			studentService.addStudentToCourse(2,1);
 			studentService.addStudentToCourse(3,4);
 
-			lecturerService.postAnnouncement(1, new Announcement(null,"Assignment Deadline Postponed", "The deadline for the final assignment of the course module has been postponed due the prevailing situation in the country", null));
-			lecturerService.postAnnouncement(3, new Announcement(null,"New Assignment Added", "New assignment has been added to the course module. The deadline is tomorrow", null));
-			lecturerService.postAnnouncement(3, new Announcement(null,"New Assignment Added", "New assignment has been added to the course module. The deadline is today", null));
-			lecturerService.postAnnouncement(4, new Announcement(null,"Assignment Deadline Postponed", "The deadline for the final assignment of the course module has been postponed due the prevailing situation in the country", null));
+//			lecturerService.postAnnouncement(1, new Announcement(null,"Assignment Deadline Postponed", "The deadline for the final assignment of the course module has been postponed due the prevailing situation in the country", null));
+//			lecturerService.postAnnouncement(3, new Announcement(null,"New Assignment Added", "New assignment has been added to the course module. The deadline is tomorrow", null));
+//			lecturerService.postAnnouncement(3, new Announcement(null,"New Assignment Added", "New assignment has been added to the course module. The deadline is today", null));
+//			lecturerService.postAnnouncement(4, new Announcement(null,"Assignment Deadline Postponed", "The deadline for the final assignment of the course module has been postponed due the prevailing situation in the country", null));
 
 		};
 	}

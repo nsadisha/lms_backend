@@ -4,11 +4,11 @@ import com.kln.lms.api.model.Announcement;
 import com.kln.lms.api.model.CourseRegistration;
 import com.kln.lms.api.model.Lecturer;
 import com.kln.lms.api.model.Student;
+import com.kln.lms.api.response.StudentMarksResponse;
 import com.kln.lms.api.service.LecturerServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -26,6 +26,11 @@ public class LecturerController {
     @GetMapping("/{courseId}/students")
     List<Student> getEnrolledStudents(@PathVariable Integer courseId){
         return lecturerService.getEnrolledStudents(courseId);
+    }
+
+    @GetMapping("/{courseId}/students/marks")
+    List<StudentMarksResponse> getEnrolledStudentsMarks(@PathVariable Integer courseId){
+        return lecturerService.getEnrolledStudentsMarks(courseId);
     }
 
     @PostMapping("/{courseId}/student/{studentId}/mark/{marks}")

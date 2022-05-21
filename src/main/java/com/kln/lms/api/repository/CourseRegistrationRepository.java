@@ -3,19 +3,23 @@ package com.kln.lms.api.repository;
 import com.kln.lms.api.model.Course;
 import com.kln.lms.api.model.CourseRegistration;
 import com.kln.lms.api.model.Student;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface CourseRegistrationRepository extends JpaRepository<CourseRegistration, Integer> {
 
     @Query("SELECT cr.student FROM CourseRegistration cr WHERE cr.course.course_id = ?1")
     List<Student> getEnrolledStudents(Integer courseId);
-//    List<Student> findCourseRegistrationsByCourse_CourseId(Integer courseId);
+
+    @Query("SELECT cr.marks FROM CourseRegistration cr WHERE cr.course.course_id = ?1")
+    List<Float> getStudentsMarks(Integer courseId);
 
     @Query("SELECT cr.course FROM CourseRegistration cr WHERE cr.student.id = ?1")
     List<Course> getEnrolledCourses(Integer studentId);
@@ -29,5 +33,4 @@ public interface CourseRegistrationRepository extends JpaRepository<CourseRegist
 
     @Query(value = "SELECT cr FROM CourseRegistration cr WHERE cr.student.id = ?1 AND cr.course.course_id = ?2")
     CourseRegistration getCourseRegistration(Integer studentId, Integer courseId);
-
 }

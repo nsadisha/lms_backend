@@ -7,12 +7,14 @@ import com.kln.lms.api.repository.AnnouncementRepository;
 import com.kln.lms.api.repository.CourseRegistrationRepository;
 import com.kln.lms.api.repository.CourseRepository;
 import com.kln.lms.api.repository.LecturerRepository;
+import com.kln.lms.api.response.StudentMarksResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service @RequiredArgsConstructor @Transactional @Slf4j
@@ -51,5 +53,19 @@ public class LecturerServiceImpl implements UserService {
                 courseRepository.findById(courseId).orElseThrow()
         );
         return announcementRepository.save(announcement);
+    }
+
+    public List<StudentMarksResponse> getEnrolledStudentsMarks(Integer courseId) {
+
+        List<Float> marks = courseRegistrationRepository.getStudentsMarks(courseId);
+        List<Student> students = courseRegistrationRepository.getEnrolledStudents(courseId);
+
+        List<StudentMarksResponse> studentMarksResponses = new ArrayList<>();
+
+        for (int i=0; i < students.size(); i++) {
+            studentMarksResponses.add(new StudentMarksResponse(students.get(i), marks.get(i)));
+        }
+
+        return studentMarksResponses;
     }
 }
