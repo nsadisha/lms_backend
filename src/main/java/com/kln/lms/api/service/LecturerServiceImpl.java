@@ -74,4 +74,10 @@ public class LecturerServiceImpl implements UserService {
 
         return studentMarksResponses;
     }
+
+    public List<Course> getConductingCourses(Integer lecturerId) {
+        log.info("Fetching all enrolled courses for student {}", lecturerId);
+        Lecturer lecturer = lecturerRepository.findById(lecturerId).orElseThrow();
+        return lecturer.getConductingCourses();
+    }
 }

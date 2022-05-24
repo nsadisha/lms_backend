@@ -1,9 +1,6 @@
 package com.kln.lms.api.controller;
 
-import com.kln.lms.api.model.Announcement;
-import com.kln.lms.api.model.CourseRegistration;
-import com.kln.lms.api.model.Lecturer;
-import com.kln.lms.api.model.Student;
+import com.kln.lms.api.model.*;
 import com.kln.lms.api.response.StudentMarksResponse;
 import com.kln.lms.api.service.LecturerServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -46,5 +43,10 @@ public class LecturerController {
             @PathVariable Integer courseId,
             @CurrentSecurityContext(expression="authentication?.Principal") String email){
         return lecturerService.postAnnouncement(courseId, announcement, email);
+    }
+
+    @GetMapping("/{lecturerId}/courses")
+    List<Course> getConductingCourses(@PathVariable Integer lecturerId){
+        return lecturerService.getConductingCourses(lecturerId);
     }
 }

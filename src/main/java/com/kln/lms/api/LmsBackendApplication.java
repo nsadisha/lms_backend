@@ -35,7 +35,7 @@ public class LmsBackendApplication {
 		return args -> {
 
 			userService.saveUser(new User(null, "Hasini Kavisha", "hasinisama99@gmail.com", "123", "STUDENT"));
-			userService.saveUser(new User(null, "Sadisha Nimsara", "nsadisha@gmail.com", "123", "STUDENT"));
+			userService.saveUser(new User(null, "Sadisha Nimsara", "gnsadisha@gmail.com", "123", "STUDENT"));
 			userService.saveUser(new User(null, "Tharushi Chamalsha", "Tharushi@gmail.com", "123", "STUDENT"));
 
 			userService.saveUser(new User(null, "Ms. Amara Samarasignhe", "Amara@gmail.com", "123", "LECTURER"));

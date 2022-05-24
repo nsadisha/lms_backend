@@ -29,3 +29,5 @@ public class MailGunEmailService implements EmailService{
 
 
 }
+
+//throw an email execption
